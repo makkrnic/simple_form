@@ -16,13 +16,13 @@ module SimpleForm
       protected
 
       def error_text
-        text = has_custom_error? ? options[:error] : errors.send(error_method)
+        text = has_error_in_options? ? options[:error] : errors.send(error_method)
 
         "#{html_escape(options[:error_prefix])} #{html_escape(text)}".lstrip.html_safe
       end
 
       def full_error_text
-        has_custom_error? ? options[:error] : full_errors.send(error_method)
+        has_error_in_options? ? options[:error] : full_errors.send(error_method)
       end
 
       def error_method
@@ -53,7 +53,7 @@ module SimpleForm
         reflection ? object.errors.full_messages_for(reflection.name) : []
       end
 
-      def has_custom_error?
+      def has_error_in_options?
         options[:error].is_a?(String)
       end
     end
